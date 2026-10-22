@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>미니 체육대회 점수 계산기</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+:root{--pink:#E8508A;--pink-bg:#FFF0F4;--pink-line:#F9CFDC;--ink:#1a1a1a;--sub:#555;--muted:#999;--gray:#F7F7F8;--line:#E6E6E6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;word-break:keep-all;color:var(--ink);background:#fff;padding:20px 16px 60px;max-width:680px;margin:0 auto;-webkit-tap-highlight-color:transparent}
+.chip{display:inline-block;background:var(--ink);color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:6px}
+h1{font-size:24px;font-weight:800;line-height:1.35;margin:12px 0 22px}
+.step{margin-bottom:28px}
+.step-h{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700;margin-bottom:8px}
+.num{width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pt{color:var(--pink)}
+.desc{border-left:2px solid var(--line);padding-left:10px;margin-left:10px;color:var(--sub);font-size:14px;line-height:1.7;margin-bottom:12px}
+.desc b{color:var(--ink)}
+.box{background:var(--gray);border:1px solid #EEE;border-radius:14px;padding:12px}
+.box-t{font-size:15px;font-weight:700;margin-bottom:10px}
+.inner{background:#fff;border:1px solid var(--line);border-radius:10px;padding:4px 6px}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:8px 12px;border-radius:20px;border:1px solid var(--pink-line);background:#fff;color:var(--sub);font-size:13px;font-weight:600;font-family:inherit}
+.tab.on{background:var(--pink);color:#fff;border-color:var(--pink)}
+.rule{background:var(--pink-bg);border:1px solid var(--pink-line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--sub);margin-bottom:10px;line-height:1.6}
+.rule b{color:var(--pink)}
+.row{display:flex;align-items:center;gap:6px;padding:6px 4px;border-bottom:1px dashed #eee}
+.row:last-child{border:none}
+.tn{width:34px;font-weight:700;font-size:14px;flex-shrink:0}
+.row input,.row select{flex:1;min-width:0;height:42px;border:1px solid var(--line);border-radius:8px;background:var(--gray);padding:0 10px;font-size:16px;font-family:inherit;text-align:right}
+.row select{text-align:left}
+.rk{min-width:64px;flex-shrink:0;white-space:nowrap;text-align:right;font-size:13px;color:var(--muted)}
+.rk b{color:var(--pink);font-size:15px}
+.result{background:var(--pink-bg);border:1px solid var(--pink-line);border-radius:12px;padding:14px;margin-top:12px}
+.result h3{color:var(--pink);font-size:16px;margin-bottom:8px}
+.card{background:#fff;border:1px solid var(--pink-line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.card.first{border:2px solid var(--pink)}
+.c-top{display:flex;align-items:center;gap:10px}
+.c-rank{width:30px;font-size:18px;font-weight:800;text-align:center}
+.c-team{flex:1;font-size:16px;font-weight:700}
+.c-tot{font-size:20px;font-weight:800;color:var(--pink)}
+.c-tot small{font-size:12px;color:var(--sub);font-weight:600;margin-left:2px}
+.c-bd{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;padding-left:40px}
+.c-bd span{font-size:11px;background:var(--gray);border-radius:6px;padding:3px 6px;color:var(--sub)}
+.c-bd b{color:var(--ink)}
+.reset{text-align:right;margin-top:10px}
+.reset a{color:var(--sub);font-size:13px;text-decoration:underline;cursor:pointer}
+.tag{background:var(--pink-bg);border:1px solid var(--pink-line);border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:6px}
+.tag b{color:var(--pink)}
+</style>
+</head>
+<body>
+
+<span class="chip">Chapter 03</span>
+<h1>미니 체육대회<br>점수 계산기 🏆</h1>
+
+<div class="step">
+  <div class="step-h"><span class="num">1</span><span><span class="pt">5개 종목</span> 기록을 입력해요</span></div>
+  <div class="desc">종목을 선택하고 조별 기록을 입력하세요<br>순위와 점수는 <b>자동으로 계산</b>돼요</div>
+  <div class="box">
+    <div class="box-t">📊 종목별 기록 입력</div>
+    <div class="tabs" id="tabs"></div>
+    <div class="rule" id="rule"></div>
+    <div class="inner" id="rows"></div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-h"><span class="num">2</span><span><span class="pt">실시간 종합 순위</span>를 확인해요</span></div>
+  <div class="desc">입력 즉시 반영되고, 새로고침해도 <b>기록이 유지</b>돼요</div>
+  <div class="result">
+    <h3>▶ 종합 순위</h3>
+    <div id="board"></div>
+    <div class="reset"><a onclick="resetAll()">전체 초기화</a></div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-h"><span class="num">3</span><span>점수 기준</span></div>
+  <div class="tag"># <b>순위 점수</b> – 1등 100 · 85 · 75 · 65 · 55 · 45 · 35 · 25 · 9등 15</div>
+  <div class="tag"># <b>딱지치기</b> – 우승 100 · 준우승 85 · 4강 70 · 8강 50 · 1경기 탈락 30</div>
+  <div class="tag"># <b>OX 막판 뒤집기</b> – 생존자 1명당 20점</div>
+  <div class="tag"># <b>동점 처리</b> – 같은 순위, 다음 순위는 건너뛰기</div>
+</div>
+
+<script>
+const N=9, TEAMS=[...Array(N)].map((_,i)=>(i+1)+'조');
+const RANK_PTS=[100,85,75,65,55,45,35,25,15];
+const DDAK={'':0,'우승':100,'준우승':85,'4강':70,'8강':50,'1경기 탈락':30};
+const OX_PER=20;
+const EV=[
+ {k:'bottle',n:'물병세우기',type:'rank',low:true,ph:'초',rule:'3개 모두 세우는 시간 <b>(초)</b> · 적게 걸릴수록 1등'},
+ {k:'jegi',n:'제기차기',type:'rank',low:false,ph:'개',rule:'30초 동안 찬 <b>횟수</b> · 많을수록 1등'},
+ {k:'shoe',n:'신발던지기',type:'rank',low:false,ph:'점',rule:'3번 던진 <b>점수 합산</b> · 높을수록 1등'},
+ {k:'ddak',n:'딱지치기',type:'ddak',rule:'토너먼트 <b>최종 결과</b> 선택 (7팀 부전승)'},
+ {k:'ox',n:'OX퀴즈',type:'ox',ph:'명',rule:'조별 <b>최종 생존자 수</b> · 1명당 20점'},
+ {k:'bonus',n:'보너스',type:'bonus',ph:'점',rule:'응원상·미션 등 <b>추가 점수</b> 직접 입력'}
+];
+let data=JSON.parse((()=>{try{return localStorage.getItem('sportsScore')}catch(e){return null}})()||'{}');
+EV.forEach(e=>{if(!data[e.k])data[e.k]=Array(N).fill('')});
+let cur=0;
+
+function save(){try{localStorage.setItem('sportsScore',JSON.stringify(data))}catch(e){}}
+
+function rankScores(vals,low){
+  const out=Array(N).fill(0), rk=Array(N).fill('');
+  const idx=vals.map((v,i)=>[v===''?null:Number(v),i]).filter(x=>x[0]!==null&&!isNaN(x[0]));
+  idx.forEach(([v,i])=>{
+    const better=idx.filter(([w])=>low?w<v:w>v).length;
+    rk[i]=better+1; out[i]=RANK_PTS[better]??0;
+  });
+  return {pts:out,rk};
+}
+function scoresOf(e){
+  const v=data[e.k];
+  if(e.type==='rank')return rankScores(v,e.low);
+  if(e.type==='ddak')return {pts:v.map(x=>DDAK[x]||0),rk:v.map(x=>x||'')};
+  if(e.type==='ox')return {pts:v.map(x=>(Number(x)||0)*OX_PER),rk:v.map(()=>'')};
+  return {pts:v.map(x=>Number(x)||0),rk:v.map(()=>'')};
+}
+function renderTabs(){
+  document.getElementById('tabs').innerHTML=EV.map((e,i)=>`<button class="tab ${i===cur?'on':''}" onclick="cur=${i};renderAll()">${e.n}</button>`).join('');
+  document.getElementById('rule').innerHTML=EV[cur].rule;
+}
+function renderRows(){
+  const e=EV[cur], s=scoresOf(e);
+  document.getElementById('rows').innerHTML=TEAMS.map((t,i)=>{
+    const inp=e.type==='ddak'
+      ?`<select onchange="upd(${i},this.value)">${Object.keys(DDAK).map(o=>`<option ${data[e.k][i]===o?'selected':''} value="${o}">${o||'결과 선택'}</option>`).join('')}</select>`
+      :`<input type="number" inputmode="decimal" placeholder="${e.ph}" value="${data[e.k][i]}" oninput="upd(${i},this.value)">`;
+    const rk=e.type==='rank'&&s.rk[i]?`${s.rk[i]}등 `:'';
+    return `<div class="row"><span class="tn">${t}</span>${inp}<span class="rk" id="rk${i}">${rk}<b>${s.pts[i]}</b>점</span></div>`;
+  }).join('');
+}
+function upd(i,v){
+  data[EV[cur].k][i]=v; save();
+  const e=EV[cur], s=scoresOf(e);
+  TEAMS.forEach((_,j)=>{const rk=e.type==='rank'&&s.rk[j]?`${s.rk[j]}등 `:'';document.getElementById('rk'+j).innerHTML=`${rk}<b>${s.pts[j]}</b>점`});
+  renderBoard();
+}
+function renderBoard(){
+  const all=EV.map(scoresOf), short=['물병','제기','신발','딱지','OX','보너스'];
+  const rows=TEAMS.map((t,i)=>({t,p:all.map(s=>s.pts[i]),tot:all.reduce((a,s)=>a+s.pts[i],0)}));
+  rows.sort((a,b)=>b.tot-a.tot);
+  const any=rows.some(r=>r.tot>0);
+  document.getElementById('board').innerHTML=rows.map(r=>{
+    const rank=rows.filter(x=>x.tot>r.tot).length+1;
+    const medal=any?(rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':rank):'-';
+    return `<div class="card ${any&&rank===1?'first':''}"><div class="c-top"><span class="c-rank">${medal}</span><span class="c-team">${r.t}</span><span class="c-tot">${r.tot}<small>점</small></span></div><div class="c-bd">${r.p.map((x,k)=>`<span>${short[k]} <b>${x}</b></span>`).join('')}</div></div>`;
+  }).join('');
+}
+function renderAll(){renderTabs();renderRows();renderBoard()}
+function resetAll(){if(confirm('모든 기록을 초기화할까요?')){EV.forEach(e=>data[e.k]=Array(N).fill(''));save();renderAll()}}
+renderAll();
+</script>
+</body>
+</html>
