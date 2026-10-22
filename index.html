@@ -8,7 +8,9 @@
 <style>
 :root{--pink:#E8508A;--pink-bg:#FFF0F4;--pink-line:#F9CFDC;--ink:#1a1a1a;--sub:#555;--muted:#999;--gray:#F7F7F8;--line:#E6E6E6}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;word-break:keep-all;color:var(--ink);background:#fff;padding:20px 16px 60px;max-width:680px;margin:0 auto;-webkit-tap-highlight-color:transparent}
+body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;word-break:keep-all;color:var(--ink);background:#fff;padding:0 16px 60px;max-width:680px;margin:0 auto;-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;cursor:pointer}
+input{font-family:inherit}
 .chip{display:inline-block;background:var(--ink);color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:6px}
 h1{font-size:24px;font-weight:800;line-height:1.35;margin:12px 0 22px}
 .step{margin-bottom:28px}
@@ -22,7 +24,7 @@ h1{font-size:24px;font-weight:800;line-height:1.35;margin:12px 0 22px}
 .inner{background:#fff;border:1px solid var(--line);border-radius:10px;padding:4px 6px}
 .tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex-shrink:0;padding:8px 12px;border-radius:20px;border:1px solid var(--pink-line);background:#fff;color:var(--sub);font-size:13px;font-weight:600;font-family:inherit}
+.tab{flex-shrink:0;padding:8px 12px;border-radius:20px;border:1px solid var(--pink-line);background:#fff;color:var(--sub);font-size:13px;font-weight:600}
 .tab.on{background:var(--pink);color:#fff;border-color:var(--pink)}
 .rule{background:var(--pink-bg);border:1px solid var(--pink-line);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--sub);margin-bottom:10px;line-height:1.6}
 .rule b{color:var(--pink)}
@@ -49,7 +51,7 @@ h1{font-size:24px;font-weight:800;line-height:1.35;margin:12px 0 22px}
 .reset a{color:var(--sub);font-size:13px;text-decoration:underline;cursor:pointer}
 .tag{background:var(--pink-bg);border:1px solid var(--pink-line);border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:6px}
 .tag b{color:var(--pink)}
-/* ④ 게임 진행방식 */
+/* 게임 진행방식 */
 .game{background:#fff;border:1px solid var(--pink-line);border-radius:12px;margin-bottom:8px;overflow:hidden}
 .game summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 14px;font-size:15px;font-weight:700;cursor:pointer}
 .game summary::-webkit-details-marker{display:none}
@@ -62,10 +64,115 @@ h1{font-size:24px;font-weight:800;line-height:1.35;margin:12px 0 22px}
 .game li::before{content:'·';position:absolute;left:2px;color:var(--pink);font-weight:800}
 .game li b{color:var(--ink)}
 .game li .pt{font-weight:700}
+
+/* 상단 탭 */
+.topnav{position:sticky;top:0;z-index:20;background:#fff;display:flex;gap:6px;padding:12px 0 10px;margin-bottom:10px;border-bottom:1px solid #f1f1f1}
+.nav-btn{flex:1;height:40px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:14px;font-weight:700;color:var(--sub)}
+.nav-btn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.hide{display:none}
+
+/* 비밀번호 모달 */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50;display:flex;align-items:center;justify-content:center;padding:24px}
+.modal.hide{display:none}
+.m-box{background:#fff;border-radius:16px;padding:22px 18px 18px;width:100%;max-width:320px;text-align:center}
+.m-box h4{font-size:17px;margin:6px 0 4px}
+.m-box p{font-size:13px;color:var(--sub);margin-bottom:14px}
+.m-box input{width:100%;height:46px;border:1px solid var(--line);border-radius:10px;background:var(--gray);text-align:center;font-size:20px;letter-spacing:6px}
+.m-err{color:var(--pink);font-size:12px;height:18px;margin-top:6px}
+.m-btns{display:flex;gap:6px;margin-top:4px}
+.m-btns button{flex:1;height:44px;border-radius:10px;border:none;font-weight:700;font-size:15px}
+.m-cancel{background:var(--gray);color:var(--sub)}
+.m-ok{background:var(--pink);color:#fff}
+.shake{animation:sh .3s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* Admin 공통 */
+.add{display:flex;gap:6px;margin-top:8px}
+.add input{flex:1;min-width:0;height:40px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:0 10px;font-size:16px}
+.add button{height:40px;padding:0 14px;border:none;border-radius:8px;background:var(--pink);color:#fff;font-weight:700;font-size:14px;flex-shrink:0}
+.x{width:28px;height:28px;border:none;background:none;color:var(--muted);font-size:18px;flex-shrink:0}
+.prog{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--sub);margin-bottom:8px}
+.bar{flex:1;height:6px;background:#fff;border-radius:6px;overflow:hidden;border:1px solid var(--pink-line)}
+.bar i{display:block;height:100%;background:var(--pink);transition:width .2s}
+.empty{font-size:13px;color:var(--muted);text-align:center;padding:14px 0}
+.lock{text-align:right;margin-top:-10px;margin-bottom:14px}
+.lock a{font-size:12px;color:var(--sub);text-decoration:underline;cursor:pointer}
+
+/* To-do 타임라인 */
+.prep input[type=checkbox]{width:20px;height:20px;accent-color:var(--pink);flex-shrink:0}
+.tl{position:relative;padding-left:4px}
+.td{position:relative;display:flex;gap:10px;padding:0 0 12px 0}
+.td::before{content:'';position:absolute;left:9px;top:22px;bottom:0;width:2px;background:var(--pink-line)}
+.td:last-child::before{display:none}
+.td .ck{position:relative;z-index:1;width:20px;height:20px;margin-top:10px;accent-color:var(--pink);flex-shrink:0}
+.td-card{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.td-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.td-time{background:var(--ink);color:#fff;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.td-who{background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-line);font-size:12px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.td-pl{font-size:12px;font-weight:600;color:var(--sub);white-space:nowrap}
+.td-pl::before{content:'/';margin:0 4px 0 2px;color:var(--muted)}
+.td-top .x{margin-left:auto;width:22px;height:22px;font-size:16px}
+.td-t{font-size:14px;line-height:1.55;color:var(--ink)}
+.td-t b{color:var(--pink)}
+.td-sub{list-style:none;margin-top:6px;background:var(--gray);border-radius:8px;padding:6px 10px}
+.td-sub li{position:relative;padding-left:10px;font-size:12.5px;color:var(--sub);line-height:1.6}
+.td-sub li::before{content:'·';position:absolute;left:0;color:var(--pink);font-weight:800}
+.td.done .td-card{background:var(--gray);opacity:.6}
+.td.done .td-t{text-decoration:line-through;color:var(--muted)}
+.note{background:var(--pink-bg);border:1px solid var(--pink-line);border-radius:12px;padding:12px 14px;margin-top:10px}
+.note h5{font-size:14px;color:var(--pink);margin-bottom:6px}
+.note .nr{display:flex;gap:8px;font-size:13px;line-height:1.6;padding:4px 0;border-top:1px dashed var(--pink-line)}
+.note .nr:first-of-type{border:none}
+.note .nk{flex-shrink:0;width:60px;font-weight:700}
+.note .nv{color:var(--sub)}
+.note .nv b{color:var(--ink)}
+.add.col{flex-wrap:wrap}
+.add.col input{flex:1 1 40%}
+.add.col input.full{flex:1 1 100%}
+
+/* 준비물 */
+.preps{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.prep{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 4px 8px 10px;font-size:14px}
+.prep span{flex:1;min-width:0}
+.prep.ok{background:var(--pink-bg);border-color:var(--pink-line)}
+.prep.ok span{color:var(--muted);text-decoration:line-through}
+
+/* 비용 */
+.bsum{background:var(--pink-bg);border:1px solid var(--pink-line);border-radius:12px;padding:14px;margin-bottom:10px}
+.bsum .l{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--sub);margin-bottom:6px}
+.bsum .calc{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end;font-size:14px;color:var(--sub)}
+.bsum .calc b{font-size:16px;color:var(--ink)}
+.bsum .l input{width:64px;height:34px;border:1px solid var(--pink-line);border-radius:8px;background:#fff;text-align:right;padding:0 8px;font-size:16px;font-weight:700}
+.bsum .big{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--pink-line);padding-top:8px;margin-top:4px}
+.bsum .big span{font-size:15px;font-weight:700;color:var(--pink)}
+.bsum .big b{font-size:22px;font-weight:800;color:var(--pink)}
+.bgroup{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 10px 8px;margin-bottom:8px}
+.bg-h{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.bg-name{flex:1;min-width:0;border:none;font-size:15px;font-weight:800;color:#3d8b3d;background:none;padding:4px 0}
+.bg-sub{font-size:13px;font-weight:700;color:var(--sub)}
+.bitem{border-top:1px dashed #eee;padding:6px 0}
+.bi-top{display:flex;align-items:center;gap:6px}
+.bi-name{flex:1;min-width:0;height:36px;border:1px solid transparent;border-radius:8px;background:var(--gray);padding:0 8px;font-size:15px}
+.bi-amt{width:112px;height:36px;border:1px solid var(--line);border-radius:8px;background:#fff;text-align:right;padding:0 8px;font-size:16px;font-weight:700}
+.bi-memo{width:100%;height:28px;border:none;background:none;font-size:12px;color:var(--muted);padding:0 8px;margin-top:2px}
+.add-sm{border:1px dashed var(--pink-line);background:#fff;color:var(--pink);border-radius:8px;font-size:12px;font-weight:600;padding:6px 10px;margin-top:4px}
+.bi-ck{width:20px;height:20px;accent-color:var(--pink);flex-shrink:0}
+.bi-top.ex .bi-name,.bi-top.ex .bi-amt{text-decoration:line-through;color:var(--muted);background:#f0f0f0}
+.ex-hint{font-size:11px;color:var(--muted);margin-top:4px}
+.bal{display:flex;justify-content:flex-end;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin-top:6px;border-top:1px solid #f1f1f1;padding-top:6px}
+.bal b{font-size:15px;color:#d33}
+.neg{color:#d33!important}
 </style>
 </head>
 <body>
 
+<nav class="topnav">
+  <button class="nav-btn on" id="nav-score" onclick="showView('score')">🏆 점수 계산기</button>
+  <button class="nav-btn" id="nav-admin" onclick="openAdmin()">🔒 Admin</button>
+</nav>
+
+<!-- ================= 점수 계산기 ================= -->
+<div id="view-score">
 <span class="chip">Chapter 03</span>
 <h1>미니 체육대회<br>점수 계산기 🏆</h1>
 
@@ -147,8 +254,81 @@ h1{font-size:24px;font-weight:800;line-height:1.35;margin:12px 0 22px}
     </ul>
   </details>
 </div>
+</div>
+
+<!-- ================= Admin ================= -->
+<div id="view-admin" class="hide">
+<span class="chip">Admin</span>
+<h1>운영위 전용<br>관리 페이지 🔐</h1>
+<div class="lock"><a onclick="lockAdmin()">🔒 잠그기</a></div>
+
+<div class="step">
+  <div class="step-h"><span class="num">1</span><span><span class="pt">To-do</span> 리스트</span></div>
+  <div class="desc"><b>시간순</b>으로 정리했어요. 완료되면 체크하세요</div>
+  <div class="box">
+    <div class="prog"><span id="todoCnt">0/0 완료</span><div class="bar"><i id="todoBar" style="width:0"></i></div></div>
+    <div class="tl" id="todoList"></div>
+    <div class="note">
+      <h5>🎁 상품 구매 기준</h5>
+      <div class="nr"><span class="nk">와인샵</span><span class="nv"><b>20만원</b> 이내</span></div>
+      <div class="nr"><span class="nk">올리브영</span><span class="nv">메디힐 마스크팩 <b>17개</b><br>바디크림 <b>12만원</b> 이내</span></div>
+    </div>
+    <div class="add col">
+      <input id="todoTm" placeholder="시간 (예: 10:20)">
+      <input id="todoW" placeholder="담당자 (예: 서수민, 양동주)">
+      <input id="todoPl" class="full" placeholder="장소 (예: 망원역)">
+      <input id="todoT" class="full" placeholder="할 일">
+      <button style="flex:1 1 100%" onclick="addTodo()">추가</button>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-h"><span class="num">2</span><span><span class="pt">준비물</span> 체크</span></div>
+  <div class="desc">챙긴 준비물은 <b>체크</b>해서 빠짐없이 확인하세요</div>
+  <div class="box">
+    <div class="prog"><span id="prepCnt">0/0</span><div class="bar"><i id="prepBar" style="width:0"></i></div></div>
+    <div class="preps" id="prepList"></div>
+    <div class="add">
+      <input id="prepN" placeholder="준비물 추가">
+      <button onclick="addPrep()">추가</button>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-h"><span class="num">3</span><span><span class="pt">비용</span> 사용내역</span></div>
+  <div class="desc">금액을 입력하면 <b>남은 예산이 자동 계산</b>돼요</div>
+  <div id="budget"></div>
+  <div class="reset"><a onclick="resetAdmin()">관리 데이터 초기화</a></div>
+</div>
+</div>
+
+<!-- 비밀번호 모달 -->
+<div class="modal hide" id="pwModal">
+  <div class="m-box" id="pwBox">
+    <div style="font-size:28px">🔒</div>
+    <h4>Admin 전용</h4>
+    <p>비밀번호를 입력하세요</p>
+    <input type="password" id="pwIn" inputmode="numeric" maxlength="10" onkeydown="if(event.key==='Enter')checkPw()">
+    <div class="m-err" id="pwErr"></div>
+    <div class="m-btns">
+      <button class="m-cancel" onclick="closePw()">취소</button>
+      <button class="m-ok" onclick="checkPw()">확인</button>
+    </div>
+  </div>
+</div>
 
 <script>
+/* ---------- 공통 ---------- */
+const store={
+  get(k){try{return localStorage.getItem(k)}catch(e){return null}},
+  set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+};
+const fmt=n=>(Number(n)||0).toLocaleString('ko-KR');
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+
+/* ---------- 점수 계산기 ---------- */
 const N=9, TEAMS=[...Array(N)].map((_,i)=>(i+1)+'조');
 const RANK_PTS=[100,85,75,65,55,45,35,25,15];
 const DDAK={'':0,'우승':100,'준우승':85,'4강':70,'8강':50,'1경기 탈락':30};
@@ -161,11 +341,10 @@ const EV=[
  {k:'ox',n:'OX퀴즈',type:'ox',ph:'명',rule:'조별 <b>최종 생존자 수</b> · 1명당 20점'},
  {k:'bonus',n:'보너스',type:'bonus',ph:'점',rule:'응원상·미션 등 <b>추가 점수</b> 직접 입력'}
 ];
-let data=JSON.parse((()=>{try{return localStorage.getItem('sportsScore')}catch(e){return null}})()||'{}');
+let data=JSON.parse(store.get('sportsScore')||'{}');
 EV.forEach(e=>{if(!data[e.k])data[e.k]=Array(N).fill('')});
 let cur=0;
-
-function save(){try{localStorage.setItem('sportsScore',JSON.stringify(data))}catch(e){}}
+function save(){store.set('sportsScore',JSON.stringify(data))}
 
 function rankScores(vals,low){
   const out=Array(N).fill(0), rk=Array(N).fill('');
@@ -216,7 +395,194 @@ function renderBoard(){
 }
 function renderAll(){renderTabs();renderRows();renderBoard()}
 function resetAll(){if(confirm('모든 기록을 초기화할까요?')){EV.forEach(e=>data[e.k]=Array(N).fill(''));save();renderAll()}}
+
+/* ---------- 화면 전환 / 비밀번호 ---------- */
+const PW='24680';
+function showView(v){
+  document.getElementById('view-score').classList.toggle('hide',v!=='score');
+  document.getElementById('view-admin').classList.toggle('hide',v!=='admin');
+  document.getElementById('nav-score').classList.toggle('on',v==='score');
+  document.getElementById('nav-admin').classList.toggle('on',v==='admin');
+  window.scrollTo(0,0);
+}
+function isUnlocked(){try{return sessionStorage.getItem('adminOk')==='1'}catch(e){return window._ok}}
+function openAdmin(){
+  if(isUnlocked()){showView('admin');return}
+  document.getElementById('pwModal').classList.remove('hide');
+  document.getElementById('pwIn').value='';
+  document.getElementById('pwErr').textContent='';
+  setTimeout(()=>document.getElementById('pwIn').focus(),50);
+}
+function closePw(){document.getElementById('pwModal').classList.add('hide')}
+function checkPw(){
+  const v=document.getElementById('pwIn').value;
+  if(v===PW){
+    try{sessionStorage.setItem('adminOk','1')}catch(e){window._ok=true}
+    document.getElementById('nav-admin').textContent='🔓 Admin';
+    closePw(); renderAdmin(); showView('admin');
+  }else{
+    const b=document.getElementById('pwBox');
+    document.getElementById('pwErr').textContent='비밀번호가 맞지 않아요';
+    b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
+    document.getElementById('pwIn').value='';
+  }
+}
+function lockAdmin(){
+  try{sessionStorage.removeItem('adminOk')}catch(e){window._ok=false}
+  document.getElementById('nav-admin').textContent='🔒 Admin';
+  showView('score');
+}
+
+/* ---------- Admin 데이터 ---------- */
+const ADMIN_DEFAULT={
+  todos:[
+    {tm:'10:20',w:'서수민, 양동주',pl:'망원역',t:'<b>선발대</b> 출발 · 한강공원 셋업 (~11:30)',sub:['돗자리 9개 구매','생수 6개 구매']},
+    {tm:'10:30',w:'담당님, 나머지',pl:'망원역',t:'<b>후발대</b> 출발 · 시장투어 진행 후 한강공원 도착<br>사진미션도 동일하게 진행',sub:[]},
+    {tm:'11:30',w:'서수민',pl:'한강공원',t:'한강공원 <b>전체 진행</b>',sub:[]},
+    {tm:'11:30',w:'나머지',pl:'한강공원',t:'점수 기록 · 사진/영상 촬영',sub:[]},
+    {tm:'4번째 게임 종료',w:'조찬호',pl:'한강공원 → 식당',t:'<b>식당 이동</b> · 케익 구매',sub:[]},
+    {tm:'전체 게임 종료',w:'서수민',pl:'한강공원 → 식당',t:'담당님과 <b>식당 이동</b>',sub:[]},
+    {tm:'전체 게임 종료',w:'나머지',pl:'한강공원 → 식당',t:'뒷정리 → <b>상품 구매</b> → 식당 이동',sub:['와인샵 방문','올리브영 방문']}
+  ],
+  preps:['제기','딱지','과녁판','돗자리','쓰레기봉투','생수','물병','생일 축하케익','와인','바디크림','커피세트','마스크팩'].map(n=>({n,ok:false})),
+  budget:{
+    people:48, per:80000,
+    groups:[
+      {name:'망원시장',items:[{n:'간식비',a:370000,m:'8개조×4만원 + 1개조(9조)×5만원'}]},
+      {name:'한강공원',items:[
+        {n:'배구장 예약',a:8000,m:''},
+        {n:'미니게임 사전 준비물',a:30590,m:'제기, 딱지, 과녁판'},
+        {n:'돗자리',a:27000,m:''},
+        {n:'편의점',a:5000,m:'쓰레기봉투, 생수 3병'}]},
+      {name:'식당',items:[{n:'성미골',a:3120000,m:'48명×65,000원'}]},
+      {name:'그 외',items:[{n:'생일 축하케익',a:40000,m:''}]},
+      {name:'상품 · 체육대회',prize:true,items:[
+        {n:'1등상품',a:0,m:'와인 20만원 이내'},
+        {n:'2등상품',a:0,m:'올리브영 12만원 이내'},
+        {n:'3등상품',a:65400,m:'이디야 커피세트 6개'}]},
+      {name:'상품 · 사진미션',prize:true,items:[
+        {n:'1등상품',a:60000,m:'메디힐 마스크팩'},
+        {n:'2등상품',a:60000,m:'메디힐 마스크팩'},
+        {n:'3등상품',a:60000,m:'메디힐 마스크팩'}]},
+      {name:'상품 · 참가상',prize:true,items:[
+        {n:'이외 인원',a:55490,m:'핸드크림 35개'}]}
+    ]
+  }
+};
+let adm=JSON.parse(store.get('adminData_v5')||'null')||JSON.parse(JSON.stringify(ADMIN_DEFAULT));
+function saveAdm(){store.set('adminData_v5',JSON.stringify(adm))}
+function renderAdmin(){renderTodo();renderPrep();renderBudget()}
+function resetAdmin(){
+  if(confirm('To-do, 준비물, 비용 내역을 처음 상태로 되돌릴까요?')){
+    adm=JSON.parse(JSON.stringify(ADMIN_DEFAULT));saveAdm();renderAdmin();
+  }
+}
+
+/* To-do */
+function renderTodo(){
+  const t=adm.todos, done=t.filter(x=>x.done).length;
+  document.getElementById('todoCnt').textContent=`${done}/${t.length} 완료`;
+  document.getElementById('todoBar').style.width=t.length?(done/t.length*100)+'%':0;
+  document.getElementById('todoList').innerHTML=t.length?t.map((x,i)=>`
+    <div class="td ${x.done?'done':''}">
+      <input class="ck" type="checkbox" ${x.done?'checked':''} onchange="adm.todos[${i}].done=this.checked;saveAdm();renderTodo()">
+      <div class="td-card">
+        <div class="td-top">
+          ${x.tm?`<span class="td-time">${esc(x.tm)}</span>`:''}
+          ${(x.w||'').split(/[,/]/).map(v=>v.trim()).filter(Boolean).map(v=>`<span class="td-who">${esc(v)}</span>`).join('')}
+          ${x.pl?`<span class="td-pl">📍 ${esc(x.pl)}</span>`:''}
+          <button class="x" onclick="delTodo(${i})">×</button>
+        </div>
+        <div class="td-t">${x.t}</div>
+        ${x.sub&&x.sub.length?`<ul class="td-sub">${x.sub.map(v=>`<li>${esc(v)}</li>`).join('')}</ul>`:''}
+      </div>
+    </div>`).join(''):'<div class="empty">할 일을 추가해 주세요</div>';
+}
+function addTodo(){
+  const pl=document.getElementById('todoPl'), tm=document.getElementById('todoTm'), t=document.getElementById('todoT'), w=document.getElementById('todoW');
+  if(!t.value.trim()){t.focus();return}
+  adm.todos.push({tm:tm.value.trim(),w:w.value.trim(),pl:pl.value.trim(),t:esc(t.value.trim()),sub:[],done:false});
+  tm.value='';pl.value='';t.value='';w.value='';saveAdm();renderTodo();
+}
+function delTodo(i){if(confirm('삭제할까요?')){adm.todos.splice(i,1);saveAdm();renderTodo()}}
+
+/* 준비물 */
+function renderPrep(){
+  const p=adm.preps, ok=p.filter(x=>x.ok).length;
+  document.getElementById('prepCnt').textContent=`${ok}/${p.length} 준비`;
+  document.getElementById('prepBar').style.width=p.length?(ok/p.length*100)+'%':0;
+  document.getElementById('prepList').innerHTML=p.length?p.map((x,i)=>`
+    <label class="prep ${x.ok?'ok':''}">
+      <input type="checkbox" ${x.ok?'checked':''} onchange="adm.preps[${i}].ok=this.checked;saveAdm();renderPrep()">
+      <span>${esc(x.n)}</span>
+      <button class="x" onclick="event.preventDefault();delPrep(${i})">×</button>
+    </label>`).join(''):'<div class="empty" style="grid-column:1/-1">준비물을 추가해 주세요</div>';
+}
+function addPrep(){
+  const n=document.getElementById('prepN');
+  if(!n.value.trim()){n.focus();return}
+  adm.preps.push({n:n.value.trim(),ok:false});n.value='';saveAdm();renderPrep();
+}
+function delPrep(i){adm.preps.splice(i,1);saveAdm();renderPrep()}
+
+/* 비용 사용내역 */
+function renderBudget(){
+  const b=adm.budget;
+  let h=`<div class="bsum">
+    <div class="l"><span>예산 총액</span><span class="calc"><input class="pp" inputmode="numeric" value="${b.people||''}" oninput="setPeople(this)">명 × ${fmt(b.per)} = <b id="bTotal"></b></span></div>
+    <div class="l"><span>총 사용 금액</span><b id="bUsed"></b></div>
+    <div class="big"><span>▶ 남은 예산</span><b id="bLeft"></b></div>
+  </div>`;
+  b.groups.forEach((g,gi)=>{
+    h+=`<div class="bgroup">
+      <div class="bg-h"><input class="bg-name" value="${esc(g.name)}" oninput="adm.budget.groups[${gi}].name=this.value;saveAdm()"><span class="bg-sub" id="gs${gi}"></span><button class="x" onclick="delGroup(${gi})">×</button></div>`;
+    g.items.forEach((it,ii)=>{
+      h+=`<div class="bitem">
+        <div class="bi-top ${g.prize&&it.ex?'ex':''}">
+          ${g.prize?`<input type="checkbox" class="bi-ck" title="체크 시 계산 제외" ${it.ex?'checked':''} onchange="setEx(this,${gi},${ii})">`:''}
+          <input class="bi-name" value="${esc(it.n)}" placeholder="항목명" oninput="adm.budget.groups[${gi}].items[${ii}].n=this.value;saveAdm()">
+          <input class="bi-amt" inputmode="numeric" placeholder="0" value="${it.a?fmt(it.a):''}" oninput="setAmt(this,${gi},${ii})">
+          <button class="x" onclick="delItem(${gi},${ii})">×</button>
+        </div>
+        <input class="bi-memo" placeholder="메모 (선택)" value="${esc(it.m)}" oninput="adm.budget.groups[${gi}].items[${ii}].m=this.value;saveAdm()">
+      </div>`;
+    });
+    if(g.prize)h+=`<div class="ex-hint">☑ 체크한 항목은 계산에서 제외돼요</div>`;
+    h+=`<button class="add-sm" onclick="addItem(${gi})">+ 항목 추가</button>
+      <div class="bal">잔액 <b id="gb${gi}"></b></div></div>`;
+  });
+  h+=`<button class="add-sm" style="width:100%;padding:10px" onclick="addGroup()">+ 구분(장소) 추가</button>`;
+  document.getElementById('budget').innerHTML=h;
+  calcBudget();
+}
+function calcBudget(){
+  const b=adm.budget; b.total=(Number(b.people)||0)*b.per; let run=b.total, used=0;
+  document.getElementById('bTotal').textContent=fmt(b.total)+'원';
+  b.groups.forEach((g,gi)=>{
+    const sub=g.items.reduce((a,x)=>a+(g.prize&&x.ex?0:(Number(x.a)||0)),0);
+    used+=sub; run-=sub;
+    document.getElementById('gs'+gi).textContent=fmt(sub)+'원';
+    const gb=document.getElementById('gb'+gi);
+    gb.textContent=fmt(run)+'원';0);
+  });
+  document.getElementById('bUsed').textContent=fmt(used)+'원';
+  const left=document.getElementById('bLeft');
+  left.textContent=fmt(b.total-used)+'원';
+  left.classList.toggle('neg',b.total-used<0);
+}
+const toNum=el=>{const v=Number(el.value.replace(/[^0-9]/g,''))||0;el.value=v?fmt(v):'';return v};
+function setPeople(el){const v=Number(el.value.replace(/[^0-9]/g,''))||0;el.value=v||'';adm.budget.people=v;saveAdm();calcBudget()}
+function setAmt(el,gi,ii){adm.budget.groups[gi].items[ii].a=toNum(el);saveAdm();calcBudget()}
+function setEx(el,gi,ii){adm.budget.groups[gi].items[ii].ex=el.checked;el.parentElement.classList.toggle('ex',el.checked);saveAdm();calcBudget()}
+function addItem(gi){adm.budget.groups[gi].items.push({n:'',a:0,m:''});saveAdm();renderBudget()}
+function delItem(gi,ii){if(confirm('이 항목을 삭제할까요?')){adm.budget.groups[gi].items.splice(ii,1);saveAdm();renderBudget()}}
+function addGroup(){adm.budget.groups.push({name:'새 구분',items:[{n:'',a:0,m:''}]});saveAdm();renderBudget()}
+function delGroup(gi){if(confirm('이 구분 전체를 삭제할까요?')){adm.budget.groups.splice(gi,1);saveAdm();renderBudget()}}
+
+/* ---------- 시작 ---------- */
 renderAll();
+if(isUnlocked()){document.getElementById('nav-admin').textContent='🔓 Admin';renderAdmin()}
+document.getElementById('pwModal').addEventListener('click',e=>{if(e.target.id==='pwModal')closePw()});
 </script>
 </body>
 </html>
