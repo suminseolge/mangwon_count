@@ -49,6 +49,19 @@ h1{font-size:24px;font-weight:800;line-height:1.35;margin:12px 0 22px}
 .reset a{color:var(--sub);font-size:13px;text-decoration:underline;cursor:pointer}
 .tag{background:var(--pink-bg);border:1px solid var(--pink-line);border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:6px}
 .tag b{color:var(--pink)}
+/* ④ 게임 진행방식 */
+.game{background:#fff;border:1px solid var(--pink-line);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.game summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 14px;font-size:15px;font-weight:700;cursor:pointer}
+.game summary::-webkit-details-marker{display:none}
+.game summary .ic{font-size:20px}
+.game summary .who{margin-left:auto;font-size:11px;font-weight:600;color:var(--pink);background:var(--pink-bg);border-radius:20px;padding:3px 8px;white-space:nowrap}
+.game summary::after{content:'▾';color:var(--muted);font-size:13px}
+.game[open] summary::after{content:'▴'}
+.game ul{list-style:none;background:var(--pink-bg);border-top:1px solid var(--pink-line);padding:10px 14px 12px}
+.game li{position:relative;padding-left:12px;font-size:13px;color:var(--sub);line-height:1.7}
+.game li::before{content:'·';position:absolute;left:2px;color:var(--pink);font-weight:800}
+.game li b{color:var(--ink)}
+.game li .pt{font-weight:700}
 </style>
 </head>
 <body>
@@ -83,6 +96,56 @@ h1{font-size:24px;font-weight:800;line-height:1.35;margin:12px 0 22px}
   <div class="tag"># <b>딱지치기</b> – 우승 100 · 준우승 85 · 4강 70 · 8강 50 · 1경기 탈락 30</div>
   <div class="tag"># <b>OX 막판 뒤집기</b> – 생존자 1명당 20점</div>
   <div class="tag"># <b>동점 처리</b> – 같은 순위, 다음 순위는 건너뛰기</div>
+</div>
+
+<div class="step">
+  <div class="step-h"><span class="num">4</span><span><span class="pt">게임 진행방식</span>을 확인해요</span></div>
+  <div class="desc">종목을 누르면 <b>상세 규칙</b>이 펼쳐져요</div>
+
+  <details class="game" open>
+    <summary><span class="ic">🍶</span>물병세우기<span class="who">대표 3인</span></summary>
+    <ul>
+      <li>물병 <b>3개를 모두 세우는 시간</b>을 측정해요</li>
+      <li>시작 신호부터 3번째 물병이 설 때까지 카운트</li>
+      <li><span class="pt">걸린 시간이 짧을수록 1등</span></li>
+    </ul>
+  </details>
+
+  <details class="game">
+    <summary><span class="ic">🪶</span>제기차기<span class="who">대표 1인</span></summary>
+    <ul>
+      <li>조별 대표가 <b>30초 동안</b> 제기를 차요</li>
+      <li>찬 횟수를 카운트해요</li>
+      <li><span class="pt">찬 횟수가 많을수록 1등</span></li>
+    </ul>
+  </details>
+
+  <details class="game">
+    <summary><span class="ic">👟</span>신발던지기<span class="who">대표 3인</span></summary>
+    <ul>
+      <li>점수판을 향해 신발을 <b>3번</b> 던져요</li>
+      <li>신발이 떨어진 칸의 점수를 <b>모두 합산</b>해요</li>
+      <li><span class="pt">합산 점수가 높을수록 1등</span></li>
+    </ul>
+  </details>
+
+  <details class="game">
+    <summary><span class="ic">🟥</span>딱지치기<span class="who">대표 2인</span></summary>
+    <ul>
+      <li>2개 조가 <b>1경기</b>를 치르고, 나머지 <b>7개 조는 부전승</b></li>
+      <li>진행 순서: <b>1경기 → 8강 → 4강 → 결승</b></li>
+      <li><span class="pt">우승 100 · 준우승 85 · 4강 70 · 8강 50 · 1경기 탈락 30</span></li>
+    </ul>
+  </details>
+
+  <details class="game">
+    <summary><span class="ic">⭕</span>OX퀴즈<span class="who">전원</span></summary>
+    <ul>
+      <li>생존자가 <b>10명 안팎</b>이 되면 종료해요</li>
+      <li>마지막 문제에서 전원 탈락하면 직전 생존자 기준</li>
+      <li><span class="pt">생존자 1명당 20점 · 막판 뒤집기!</span></li>
+    </ul>
+  </details>
 </div>
 
 <script>
